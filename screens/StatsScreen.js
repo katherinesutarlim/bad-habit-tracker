@@ -9,6 +9,7 @@ import {
 } from 'react-native';
 import {AsyncStorage} from 'react-native';
 
+import {withNavigation} from 'react-navigation';
 import DatePicker from 'react-native-datepicker';
 import {ContributionGraph} from 'react-native-chart-kit';
 import RNPickerSelect from 'react-native-picker-select';
@@ -31,7 +32,7 @@ function pickerDatetoString(pickedDate) {
   return `${date}/${month}/${year}`;
 }
 
-export default class StatsScreen extends Component {
+class StatsScreen extends Component {
   constructor(props) {
     super(props);
     const today = new Date();
@@ -48,7 +49,18 @@ export default class StatsScreen extends Component {
   }
 
   componentDidMount() {
-    this.loadData();
+    const {navigation} = this.props;
+    this.focusListener = navigation.addListener('focus', () => {
+      this.loadData();
+    });
+  }
+
+  componentWillUnmount() {
+    // Remove the event listener
+    const {navigation} = this.props;
+    navigation.removeListener('focus', () => {
+      this.loadData();
+    });
   }
 
   loadData() {
@@ -135,7 +147,6 @@ export default class StatsScreen extends Component {
       backgroundGradientToOpacity: 0,
       color: (opacity = 1) => {
         // hex to rgb from https://stackoverflow.com/a/11508164
-        // console.log('color' + codeMapping[code].color);
         var bigint = parseInt(codeMapping[code].color.substring(1), 16);
         var r = (bigint >> 16) & 255;
         var g = (bigint >> 8) & 255;
@@ -218,6 +229,8 @@ export default class StatsScreen extends Component {
     );
   }
 }
+
+export default withNavigation(StatsScreen);
 
 const styles = StyleSheet.create({
   container: {

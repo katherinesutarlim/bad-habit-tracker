@@ -68,8 +68,6 @@ class HistoryScreen extends Component {
   componentDidMount() {
     const {navigation} = this.props;
     this.focusListener = navigation.addListener('focus', () => {
-      // The screen is focused
-      // Call any action
       const date = new Date();
       this.loadData(date);
     });
@@ -77,7 +75,6 @@ class HistoryScreen extends Component {
 
   componentWillUnmount() {
     // Remove the event listener
-    // this.focusListener.remove();
     const {navigation} = this.props;
     navigation.removeListener('focus', () => {
       this.loadData();
@@ -99,10 +96,7 @@ class HistoryScreen extends Component {
   delete(code, index) {
     let data = this.state.data;
     let selectedDate = this.state.selectedDate;
-    // console.log(this.state.data);
-    console.log(data[codeMapping[code].list]);
     data[codeMapping[code].list].splice(index, 1);
-    console.log(data[codeMapping[code].list]);
 
     try {
       AsyncStorage.setItem(

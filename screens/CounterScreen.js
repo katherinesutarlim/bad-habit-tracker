@@ -84,7 +84,6 @@ async function addLog(type) {
       }
       await AsyncStorage.setItem(date.substring(0, 10), JSON.stringify(log));
     } else {
-      console.log('No Data Saved');
       savelog(type);
     }
   } catch (error) {
