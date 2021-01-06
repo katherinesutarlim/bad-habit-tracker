@@ -11,10 +11,13 @@ This application is designed and developed primarily for Android. It is not test
 ## Installation ##
 
 1. Clone the repository
+1. run `npm install` or `yarn install` to install package dependencies
 1. Open a simulator (using XCode for iOS or Android Studio for Android) or connect your phone (Android)
 1. Run `react-native run-android` or `react-native run-ios` to build and run the app on the Android and iOS device/simulator respectively.
 
 ## Usage ##
+
+There are 3 pages in the app:
 
 ### Counter Page ###
 
